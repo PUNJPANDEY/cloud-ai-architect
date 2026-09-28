@@ -1,26 +1,90 @@
-# Cloud AI Architect ☁️
+# ☁️ Cloud AI Architect V2
 
-**Autonomous Multi-Cloud Infrastructure Design**  
-*"Don't just calculate cloud costs. Architect your stack autonomously."*
+> **Deterministic Multi-Cloud Architecture & Cost Workstation**
 
-This web platform implements the 15-slide pitch deck pipeline:
-1. **Requirement Intake & NLP Heuristics:** Natural language requirement prompt with quick case study presets (*Momo Delivery App*, *Real-Time Chat*, *Exam Results 500k Spike*, *B2B SaaS*).
-2. **Interactive Stress Sliders:** Real-time controls for Monthly Budget (₹ INR), Daily Active Users (DAU), Peak Surge Multiplier, and Workload Tags.
-3. **Deterministic Multi-Cloud Scoring Matrix:** Evaluates Cloud Run + Supabase, AWS Lambda, Modern PaaS, and Traditional EC2/RDS across Budget Adherence (35%), DevOps Simplicity (35%), and Performance Elasticity (30%).
-4. **TCO Pricing & Savings Model:** Displays low-vs-peak monthly cost in ₹ INR and calculates exact monthly savings vs traditional baseline infrastructure.
-5. **Proactive Billing Trap Detector:** Flags silent cost traps like idle AWS NAT Gateways (~₹2,800/mo), provisioned DBs (~₹1,900/mo), and egress fees.
-6. **1-Click Infrastructure as Code:** Exports production-ready `Dockerfile`, `docker-compose.yml`, and Terraform `main.tf`.
+Cloud AI Architect V2 (CAA V2) is an interactive cloud architecture decision-support workstation that transforms natural-language workload requirements into a structured technical model, evaluates the workload across **17 cloud providers**, synthesizes an architecture, estimates infrastructure economics, identifies architectural risks and hidden billing traps, and generates infrastructure templates and architecture documentation.
+
+🌐 **Live Demo:** https://cloud-ai-architecv2.netlify.app/
+---
+
+# 🧠 What Is Cloud AI Architect?
+
+Choosing a cloud provider is rarely just a matter of comparing VM prices.
+
+A real workload can involve:
+
+- Application scale
+- Daily active users
+- Traffic surges
+- Geographic requirements
+- Database technology
+- Caching
+- Kubernetes
+- WebSockets
+- GPU inference
+- Media processing
+- Scheduled jobs
+- High availability
+- Disaster recovery
+- Hybrid connectivity
+- Security requirements
+- Compliance requirements
+- Infrastructure budget
+- Operational complexity
+
+Cloud AI Architect starts with the **workload itself**.
+
+Instead of asking:
+
+> "Which cloud is the best?"
+
+CAA asks:
+
+> **"What does this workload actually require, and which providers are technically suitable for it?"**
+
+The application then converts those requirements into a structured workload model and runs a deterministic multi-cloud evaluation.
 
 ---
 
-## How to Run
+# 🚀 Core Workflow
 
-### Via Python 3 (Recommended)
-```powershell
-cd "C:\Users\PUNJ PANDEY\.gemini\antigravity\scratch\cloud_ai_architect"
-python serve.py
-```
-Open **`http://localhost:3000`** in your browser.
-
-### Direct Browser Launch
-Double-click [`index.html`](./index.html) to open directly in Google Chrome or Edge without any server setup.
+```text
+Natural-Language Workload
+          │
+          ▼
+┌─────────────────────────┐
+│ Requirement Extraction  │
+└────────────┬────────────┘
+             ▼
+┌─────────────────────────┐
+│ Structured Workload     │
+│ Technical Model         │
+└────────────┬────────────┘
+             ▼
+┌─────────────────────────┐
+│ Capacity & Cost Sizing  │
+└────────────┬────────────┘
+             ▼
+┌─────────────────────────┐
+│ 17-Provider Evaluation  │
+└────────────┬────────────┘
+             ▼
+┌─────────────────────────┐
+│ Architecture Synthesis  │
+└────────────┬────────────┘
+             ▼
+┌─────────────────────────┐
+│ Risks & Billing Traps   │
+└────────────┬────────────┘
+             ▼
+┌─────────────────────────┐
+│ Trade-Off Analysis      │
+└────────────┬────────────┘
+             ▼
+┌─────────────────────────┐
+│ Recommendation + Cost   │
+└────────────┬────────────┘
+             ▼
+┌─────────────────────────┐
+│ IaC + ADR + Blueprint   │
+└─────────────────────────┘
