@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full bg-[#030106] text-[#FFFFFF]">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Cloud AI Architect V2 — Multi-Cloud Decision Engine</title>
+  <meta name="description" content="Deterministic multi-cloud evaluation, capacity sizing, transparent scoring, and architecture synthesizer across 17 cloud providers.">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              black: '#000000',
+              violet: '#7D39EB',
+              lime: '#C6FF33',
+              white: '#FFFFFF',
+              bgCore: '#030106'
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+            mono: ['JetBrains Mono', 'Fira Code', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="stylesheet" href="styles.css?v=2.5.0">
+</head>
+<body class="min-h-full flex flex-col font-sans antialiased text-[#FFFFFF] selection:bg-[#7D39EB] selection:text-[#C6FF33]">
+
+  <!-- Cosmic Aurora Animated Live Wallpaper Canvas -->
+  <canvas id="aurora-canvas"></canvas>
+
+  <!-- Top Navigation Header (Translucent Black/Violet Liquid Glass) -->
+  <header class="glass-header sticky top-0 z-40">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-4">
+      
+      <!-- Brand & Badges -->
+      <div class="flex items-center space-x-3 shrink-0">
+        <div class="w-9 h-9 rounded-xl bg-[#140A28] flex items-center justify-center text-[#C6FF33] font-black text-lg shadow-md border border-[#7D39EB]">
+          ☁️
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="font-black text-sm sm:text-base tracking-tight text-[#FFFFFF]">Cloud AI Architect</span>
+            <span class="tech-badge badge-violet font-bold">V2</span>
+            <span class="tech-badge badge-muted hidden md:inline-block">17 Cloud Providers</span>
+          </div>
+          <p class="text-[11px] text-white/60 hidden sm:block">Deterministic Multi-Cloud Architecture &amp; Cost Workstation</p>
+        </div>
+      </div>
+
+      <!-- Live Engine Status & Directory Controls -->
+      <div class="flex items-center space-x-2 sm:space-x-3 shrink-0">
+        
+        <!-- PROMINENT CLOUD SERVICE CATALOG BUTTON -->
+        <button id="btn-open-catalog" class="btn-catalog">
+          <i data-lucide="book-open" class="w-4 h-4"></i>
+          <span class="hidden sm:inline">SERVICE CATALOG</span>
+          <span class="sm:hidden">CATALOG</span>
+        </button>
+
+        <!-- ONE-CLICK DOWNLOAD DEPLOYMENT PACKAGE BUTTON -->
+        <a href="/netlify_deploy.zip" download="netlify_deploy.zip" id="btn-header-download" class="btn-secondary text-xs text-[#C6FF33] border-[#C6FF33]/50 hover:border-[#C6FF33] inline-flex items-center gap-1.5" title="Download deployable ZIP package">
+          <i data-lucide="download" class="w-3.5 h-3.5 text-[#C6FF33]"></i>
+          <span class="hidden md:inline font-bold">DEPLOY ZIP</span>
+          <span class="md:hidden font-bold">ZIP</span>
+        </a>
+
+        <!-- Cloud Credits & Free Tier Button -->
+        <button id="btn-open-credits" class="btn-secondary hidden lg:inline-flex">
+          <i data-lucide="gift" class="w-3.5 h-3.5 text-[#7D39EB]"></i>
+          <span>Credits Directory</span>
+        </button>
+
+        <!-- Saved Blueprints Button -->
+        <button id="btn-open-saved" class="btn-secondary hidden sm:inline-flex">
+          <i data-lucide="bookmark" class="w-3.5 h-3.5 text-[#7D39EB]"></i>
+          <span>Saved</span>
+        </button>
+
+        <!-- Centralized Currency Switcher (DEFAULT: INR) -->
+        <div class="flex items-center bg-[rgba(125,57,235,0.18)] p-0.5 rounded-lg border border-[rgba(125,57,235,0.4)]">
+          <button id="btn-currency-inr" class="px-2.5 py-1 rounded-md text-xs font-mono font-bold bg-[#C6FF33] text-[#000000] shadow-sm transition">
+            ₹ INR
+          </button>
+          <button id="btn-currency-usd" class="px-2.5 py-1 rounded-md text-xs font-mono font-bold text-white/60 hover:text-white transition">
+            $ USD
+          </button>
+        </div>
+
+        <!-- Engine Status -->
+        <div id="backend-status-badge" class="hidden xl:inline-flex items-center gap-2 px-3 py-1 rounded-lg text-xs font-mono bg-[rgba(125,57,235,0.15)] border border-[rgba(125,57,235,0.4)] text-white">
+          <span id="backend-status-dot" class="status-dot status-dot-active"></span>
+          <span id="backend-status-text">17 Clouds Indexed</span>
+        </div>
+
+        <!-- Developer Test Bench Toggle -->
+        <button onclick="document.getElementById('test-bench-modal').classList.toggle('hidden')" 
+          class="btn-secondary text-xs">
+          <i data-lucide="flask-conical" class="w-3.5 h-3.5 text-[#7D39EB]"></i>
+          <span class="hidden md:inline">Test Bench</span>
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- Main Content Layout -->
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 py-6 space-y-6">
+
+    <!-- Section 1: Workload Input & Interactive Controls (Translucent Black/Violet Glass Surface) -->
+    <section class="glass-panel p-5 sm:p-6">
+      <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+        <div class="flex items-center gap-2">
+          <h2 class="text-sm font-bold font-mono tracking-wider text-[#C6FF33] uppercase flex items-center gap-2">
+            <span class="text-[#C6FF33] font-black">>_</span> WORKLOAD SPECIFICATION INPUT
+          </h2>
+        </div>
+        <span class="text-[11px] font-mono text-white/60">Natural language NLP extraction &amp; coordinated negation scope</span>
+      </div>
+
+      <!-- Textarea (COMPLETELY EMPTY BY DEFAULT - NO PRELOADED DEMO) -->
+      <div class="relative mb-4">
+        <textarea id="workload-prompt-input" rows="4"
+          placeholder="Describe your cloud workload in normal English...&#10;Example: A large enterprise HR and payroll platform serving 180,000 daily active employees with a monthly budget of ₹8,00,000 in India. The company relies on Microsoft 365, Microsoft Entra ID, Windows Server, and SQL Server. Traffic surges to 4× during monthly payroll, with scheduled payroll and reporting jobs. No GPU inference, video processing, or WebSockets are required."
+          class="w-full glass-input p-3.5 text-sm sm:text-base leading-relaxed placeholder:text-white/35 text-white"></textarea>
+      </div>
+
+      <!-- Interactive Sliders for Sizing & Budget -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 p-4 rounded-xl bg-[rgba(12,6,22,0.65)] border border-[rgba(125,57,235,0.30)] mb-4">
+        
+        <!-- DAU Slider -->
+        <div class="slider-container">
+          <div class="flex justify-between items-center text-xs font-mono mb-1">
+            <span class="text-[#FFFFFF] font-bold flex items-center gap-1.5">
+              <i data-lucide="users" class="w-3.5 h-3.5 text-[#7D39EB]"></i> Daily Active Users
+            </span>
+            <span id="slider-dau-display" class="font-bold text-[#C6FF33] bg-[#140A28] px-2 py-0.5 rounded border border-[#7D39EB]">-</span>
+          </div>
+          <input type="range" id="slider-dau" min="1" max="100" value="1" class="slider-track" disabled>
+          <div class="flex justify-between text-[10px] font-mono text-white/50 mt-0.5">
+            <span>1k</span>
+            <span>50k</span>
+            <span>200k</span>
+            <span>1M</span>
+            <span>10M</span>
+          </div>
+        </div>
+
+        <!-- Budget Slider (INR Default) -->
+        <div class="slider-container">
+          <div class="flex justify-between items-center text-xs font-mono mb-1">
+            <span class="text-[#FFFFFF] font-bold flex items-center gap-1.5">
+              <i data-lucide="banknote" class="w-3.5 h-3.5 text-[#7D39EB]"></i> Monthly Budget
+            </span>
+            <span id="slider-budget-display" class="font-bold text-[#C6FF33] bg-[#140A28] px-2 py-0.5 rounded border border-[#7D39EB]">-</span>
+          </div>
+          <input type="range" id="slider-budget" min="1" max="100" value="1" class="slider-track" disabled>
+          <div class="flex justify-between text-[10px] font-mono text-white/50 mt-0.5">
+            <span id="budget-min-label">₹5,000</span>
+            <span id="budget-p25-label">₹1 Lakh</span>
+            <span id="budget-p50-label">₹8 Lakhs</span>
+            <span id="budget-p75-label">₹25 Lakhs</span>
+            <span id="budget-max-label">₹1 Crore</span>
+          </div>
+        </div>
+
+        <!-- Surge Multiplier Slider -->
+        <div class="slider-container">
+          <div class="flex justify-between items-center text-xs font-mono mb-1">
+            <span class="text-[#FFFFFF] font-bold flex items-center gap-1.5">
+              <i data-lucide="zap" class="w-3.5 h-3.5 text-[#7D39EB]"></i> Traffic Surge Factor
+            </span>
+            <span id="slider-surge-display" class="font-bold text-[#C6FF33] bg-[#140A28] px-2 py-0.5 rounded border border-[#7D39EB]">-</span>
+          </div>
+          <input type="range" id="slider-surge" min="1" max="10" value="1" class="slider-track" disabled>
+          <div class="flex justify-between text-[10px] font-mono text-white/50 mt-0.5">
+            <span>1× Baseline</span>
+            <span>2×</span>
+            <span>4× Peak</span>
+            <span>6×</span>
+            <span>10× Flash</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Additional Overrides Dropdown Row -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-4 text-xs font-mono">
+        <div>
+          <label class="block text-[#FFFFFF] mb-1 font-bold text-[11px]">Target Region Override</label>
+          <select id="input-override-region" class="w-full glass-input px-3 py-2 text-xs text-white">
+            <option value="auto">Auto-Detect from Workload Text</option>
+            <option value="India">India (Mumbai / Hyderabad / Central)</option>
+            <option value="Europe">Europe (Frankfurt / Ireland / Paris)</option>
+            <option value="US East">US East (N. Virginia / Ohio)</option>
+            <option value="Asia Pacific">Asia Pacific (Singapore / Tokyo / Sydney)</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-[#FFFFFF] mb-1 font-bold text-[11px]">Workload High Availability Target</label>
+          <select id="input-override-ha" class="w-full glass-input px-3 py-2 text-xs text-white">
+            <option value="auto">Auto (Standard Multi-AZ for Enterprise)</option>
+            <option value="single">Single Zone (Cost Optimized)</option>
+            <option value="multi-az">Multi-AZ Resilient (99.99% SLA)</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Actions Bar -->
+      <div class="flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-[rgba(125,57,235,0.25)]">
+        <div class="text-[11px] font-mono text-white/60 flex items-center gap-2">
+          <span>Keyboard shortcut:</span>
+          <kbd class="px-1.5 py-0.5 rounded bg-[#140A28] border border-[#7D39EB] text-[#C6FF33] font-bold">Ctrl + Enter</kbd>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <button id="btn-clear-workload" class="btn-secondary">
+            <i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i> Clear
+          </button>
+          <button id="btn-analyze-workload" class="btn-primary-action">
+            <i data-lucide="sparkles" class="w-4 h-4"></i>
+            <span>ANALYZE WORKLOAD</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 2: Extracted Technical Specifications Bar (Single Source of Truth) -->
+    <section class="tech-surface p-4 sm:p-5">
+      <div class="flex items-center justify-between mb-3 border-b border-[rgba(125,57,235,0.30)] pb-2">
+        <div class="flex items-center gap-2 text-xs font-mono font-bold text-[#C6FF33] uppercase tracking-wider">
+          <i data-lucide="layers" class="w-4 h-4 text-[#C6FF33]"></i>
+          <span>DERIVED WORKLOAD TECHNICAL MODEL</span>
+        </div>
+        <span class="text-[10px] font-mono text-white/60">Single Source of Truth</span>
+      </div>
+
+      <div class="grid grid-cols-3 sm:grid-cols-5 lg:grid-cols-9 gap-2.5 text-center">
+        <div class="p-2.5 rounded-lg bg-[rgba(18,9,32,0.7)] border border-[rgba(125,57,235,0.35)]">
+          <div class="text-[10px] font-mono text-white/60 uppercase font-bold">DAU</div>
+          <div id="metric-dau" class="font-mono font-bold text-xs sm:text-sm text-[#C6FF33] mt-0.5">-</div>
+        </div>
+        <div class="p-2.5 rounded-lg bg-[rgba(18,9,32,0.7)] border border-[rgba(125,57,235,0.35)]">
+          <div class="text-[10px] font-mono text-white/60 uppercase font-bold">BUDGET</div>
+          <div id="metric-budget" class="font-mono font-bold text-xs sm:text-sm text-[#C6FF33] mt-0.5">-</div>
+        </div>
+        <div class="p-2.5 rounded-lg bg-[rgba(18,9,32,0.7)] border border-[rgba(125,57,235,0.35)]">
+          <div class="text-[10px] font-mono text-white/60 uppercase font-bold">REGION</div>
+          <div id="metric-region" class="font-mono font-bold text-xs sm:text-sm text-[#FFFFFF] mt-0.5 truncate">-</div>
+        </div>
+        <div class="p-2.5 rounded-lg bg-[rgba(18,9,32,0.7)] border border-[rgba(125,57,235,0.35)]">
+          <div class="text-[10px] font-mono text-white/60 uppercase font-bold">SURGE</div>
+          <div id="metric-surge" class="font-mono font-bold text-xs sm:text-sm text-[#C6FF33] mt-0.5">-</div>
+        </div>
+        <div class="p-2.5 rounded-lg bg-[rgba(18,9,32,0.7)] border border-[rgba(125,57,235,0.35)]">
+          <div class="text-[10px] font-mono text-white/60 uppercase font-bold">DATABASE</div>
+          <div id="metric-database" class="font-mono font-bold text-xs sm:text-sm text-[#FFFFFF] mt-0.5">-</div>
+        </div>
+        <div class="p-2.5 rounded-lg bg-[rgba(18,9,32,0.7)] border border-[rgba(125,57,235,0.35)]">
+          <div class="text-[10px] font-mono text-white/60 uppercase font-bold">WEBSOCKETS</div>
+          <div id="metric-websockets" class="font-mono font-bold text-xs text-white/50 mt-0.5">-</div>
+        </div>
+        <div class="p-2.5 rounded-lg bg-[rgba(18,9,32,0.7)] border border-[rgba(125,57,235,0.35)]">
+          <div class="text-[10px] font-mono text-white/60 uppercase font-bold">GPU</div>
+          <div id="metric-gpu" class="font-mono font-bold text-xs text-white/50 mt-0.5">-</div>
+        </div>
+        <div class="p-2.5 rounded-lg bg-[rgba(18,9,32,0.7)] border border-[rgba(125,57,235,0.35)]">
+          <div class="text-[10px] font-mono text-white/60 uppercase font-bold">MEDIA</div>
+          <div id="metric-media" class="font-mono font-bold text-xs text-white/50 mt-0.5">-</div>
+        </div>
+        <div class="p-2.5 rounded-lg bg-[rgba(18,9,32,0.7)] border border-[rgba(125,57,235,0.35)]">
+          <div class="text-[10px] font-mono text-white/60 uppercase font-bold">CRON / JOBS</div>
+          <div id="metric-cron" class="font-mono font-bold text-xs text-white/50 mt-0.5">-</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 3: Recommendation Hero Card (Awaiting input state initially) -->
+    <section id="recommendation-hero-card" class="glass-panel overflow-hidden">
+      <!-- Injected dynamically by engine.js -->
+    </section>
+
+    <!-- Section 4: Architecture Topology Canvas & 24-Hour Hosting Economics -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+      <!-- Architecture Schematic Canvas (2 cols) -->
+      <section class="lg:col-span-2 tech-surface p-5 sm:p-6">
+        <div class="flex items-center justify-between mb-4 border-b border-[rgba(125,57,235,0.30)] pb-3">
+          <div>
+            <h3 class="text-sm font-bold font-mono text-[#FFFFFF] tracking-wider uppercase flex items-center gap-2">
+              <i data-lucide="network" class="w-4 h-4 text-[#7D39EB]"></i>
+              <span>Active Architecture Topology</span>
+            </h3>
+            <p class="text-xs text-white/60 mt-0.5">Strictly displays components required by the workload</p>
+          </div>
+          <div id="topology-count-badge" class="tech-badge badge-violet font-mono">0 Stages</div>
+        </div>
+
+        <div id="architecture-canvas-nodes" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+          <!-- Populated dynamically without undefined -->
+        </div>
+      </section>
+
+      <!-- Cost Estimation Card (1 col) -->
+      <section class="tech-surface p-5 sm:p-6 flex flex-col justify-between">
+        <div>
+          <div class="flex items-center justify-between mb-4 border-b border-[rgba(125,57,235,0.30)] pb-3">
+            <h3 class="text-sm font-bold font-mono text-[#FFFFFF] tracking-wider uppercase flex items-center gap-2">
+              <i data-lucide="calculator" class="w-4 h-4 text-[#7D39EB]"></i>
+              <span>Cost &amp; Economics</span>
+            </h3>
+            <span class="text-[10px] font-mono text-white/60">24-Hr &amp; Monthly</span>
+          </div>
+
+          <div class="space-y-3 mb-5">
+            <div class="p-3 rounded-lg bg-[rgba(125,57,235,0.20)] border border-[#7D39EB] flex items-center justify-between">
+              <span class="text-xs font-mono text-[#FFFFFF] font-bold">Estimated Monthly</span>
+              <span id="cost-est-monthly" class="font-mono font-bold text-base text-[#C6FF33]">-</span>
+            </div>
+            <div class="p-3 rounded-lg bg-[rgba(18,9,32,0.7)] border border-[rgba(125,57,235,0.3)] flex items-center justify-between">
+              <span class="text-xs font-mono text-white/70">Estimated Daily (24-Hr)</span>
+              <span id="cost-est-daily" class="font-mono font-bold text-sm text-[#FFFFFF]">-</span>
+            </div>
+            <div class="p-3 rounded-lg bg-[rgba(18,9,32,0.7)] border border-[rgba(125,57,235,0.3)] flex items-center justify-between">
+              <span class="text-xs font-mono text-white/70">Confidence Range</span>
+              <span id="cost-est-range" class="font-mono font-medium text-xs text-white/60">-</span>
+            </div>
+          </div>
+
+          <!-- Sizing Assumptions Display -->
+          <div id="cost-sizing-assumptions" class="mb-4 p-2.5 rounded-lg bg-[rgba(12,6,22,0.65)] border border-[rgba(125,57,235,0.30)] text-[11px] font-mono text-white/80 space-y-1">
+            <div class="text-[10px] font-bold uppercase text-[#C6FF33]">Transparent Sizing Basis:</div>
+            <div id="sizing-egress-basis">• Bandwidth: Awaiting evaluation</div>
+            <div id="sizing-storage-basis">• Storage: Awaiting evaluation</div>
+          </div>
+
+          <div>
+            <div class="text-[11px] font-mono uppercase text-[#FFFFFF] font-bold mb-2">Major Cost Drivers</div>
+            <div id="cost-drivers-list" class="space-y-1.5">
+              <div class="text-xs text-white/60 font-mono">No cost drivers evaluated yet.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-4 pt-3 border-t border-[rgba(125,57,235,0.30)] text-[10px] text-white/50 font-mono">
+          *Estimates calculated deterministically from provider list prices and sizing dimensions.
+        </div>
+      </section>
+
+    </div>
+
+    <!-- Section 5: Architecture Flaws, Risks & Billing Traps -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      
+      <!-- Architecture Flaws & Risks -->
+      <section class="tech-surface p-5 sm:p-6">
+        <div class="flex items-center justify-between mb-4 border-b border-[rgba(125,57,235,0.30)] pb-3">
+          <div class="flex items-center gap-2">
+            <i data-lucide="alert-triangle" class="w-4 h-4 text-[#7D39EB]"></i>
+            <h3 class="text-sm font-bold font-mono text-[#FFFFFF] tracking-wider uppercase">Architecture Flaws &amp; Risks</h3>
+          </div>
+          <span class="text-[10px] font-mono text-white/60">Automated Audit</span>
+        </div>
+
+        <div id="flaws-container" class="space-y-3">
+          <div class="text-xs text-white/60 font-mono">Awaiting workload analysis to detect architectural flaws.</div>
+        </div>
+      </section>
+
+      <!-- Cloud Billing Traps & Surcharges -->
+      <section class="tech-surface p-5 sm:p-6">
+        <div class="flex items-center justify-between mb-4 border-b border-[rgba(125,57,235,0.30)] pb-3">
+          <div class="flex items-center gap-2">
+            <i data-lucide="shield-alert" class="w-4 h-4 text-[#7D39EB]"></i>
+            <h3 class="text-sm font-bold font-mono text-[#FFFFFF] tracking-wider uppercase">Hidden Billing Traps</h3>
+          </div>
+          <span class="text-[10px] font-mono text-white/60">Unbudgeted Surcharges</span>
+        </div>
+
+        <div id="billing-traps-container" class="space-y-3">
+          <div class="text-xs text-white/60 font-mono">Awaiting workload analysis to evaluate billing traps.</div>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- Section 6: Architectural Trade-Offs Matrix -->
+    <section class="tech-surface p-5 sm:p-6">
+      <div class="flex items-center justify-between mb-4 border-b border-[rgba(125,57,235,0.30)] pb-3">
+        <div class="flex items-center gap-2">
+          <i data-lucide="git-commit" class="w-4 h-4 text-[#7D39EB]"></i>
+          <h3 class="text-sm font-bold font-mono text-[#FFFFFF] tracking-wider uppercase">Engineering Trade-Offs &amp; Decision Rationales</h3>
+        </div>
+        <span class="text-[10px] font-mono text-white/60">Why A over B</span>
+      </div>
+
+      <div id="tradeoffs-container" class="grid grid-cols-1 md:grid-cols-2 gap-3">
+        <div class="text-xs text-white/60 font-mono">Awaiting workload analysis to generate trade-off rationales.</div>
+      </div>
+    </section>
+
+    <!-- Section 7: Multi-Cloud Comparison Matrix (All 17 Providers) -->
+    <section class="tech-surface p-5 sm:p-6">
+      <div class="flex items-center justify-between mb-4 border-b border-[rgba(125,57,235,0.30)] pb-3">
+        <div>
+          <h3 class="text-sm font-bold font-mono text-[#FFFFFF] tracking-wider uppercase flex items-center gap-2">
+            <i data-lucide="scale" class="w-4 h-4 text-[#7D39EB]"></i>
+            <span>Deterministic Multi-Cloud Provider Evaluation Matrix</span>
+          </h3>
+          <p class="text-xs text-white/60 mt-0.5">Independent 100-point suitability scoring across all 17 supported providers</p>
+        </div>
+        <span id="ranking-count-badge" class="tech-badge badge-violet font-mono">17 Clouds</span>
+      </div>
+
+      <div class="overflow-x-auto">
+        <table class="w-full text-left border-collapse table-violet">
+          <thead>
+            <tr class="text-[10px] font-mono uppercase">
+              <th class="py-2.5 px-3">Rank</th>
+              <th class="py-2.5 px-3">Provider</th>
+              <th class="py-2.5 px-3">Category</th>
+              <th class="py-2.5 px-3">Score</th>
+              <th class="py-2.5 px-3">Est. Monthly</th>
+              <th class="py-2.5 px-3">Match Rate</th>
+              <th class="py-2.5 px-3">Key Workload Factor</th>
+            </tr>
+          </thead>
+          <tbody id="comparison-table-body">
+            <!-- Populated dynamically -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Section 8: Procurement Scenarios (A - F) -->
+    <section class="tech-surface p-5 sm:p-6">
+      <div class="flex items-center justify-between mb-4 border-b border-[rgba(125,57,235,0.30)] pb-3">
+        <div class="flex items-center gap-2">
+          <i data-lucide="briefcase" class="w-4 h-4 text-[#7D39EB]"></i>
+          <h3 class="text-sm font-bold font-mono text-[#FFFFFF] tracking-wider uppercase">Strategic Procurement Scenarios (A – F)</h3>
+        </div>
+        <span class="text-[10px] font-mono text-white/60">Lifecycle Playbooks</span>
+      </div>
+
+      <div id="scenarios-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3.5">
+        <!-- Rendered by engine.js -->
+      </div>
+    </section>
+
+    <!-- Section 9: Infrastructure Code Viewer (IaC) -->
+    <section class="tech-surface p-5 sm:p-6">
+      <div class="flex flex-wrap items-center justify-between gap-3 mb-3 border-b border-[rgba(125,57,235,0.30)] pb-3">
+        <div class="flex items-center gap-2">
+          <i data-lucide="code" class="w-4 h-4 text-[#7D39EB]"></i>
+          <h3 class="text-sm font-bold font-mono text-[#FFFFFF] tracking-wider uppercase">Infrastructure Templates</h3>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <!-- Format Tabs -->
+          <div class="flex items-center bg-[#140A28] p-0.5 rounded-lg border border-[rgba(125,57,235,0.4)]">
+            <button class="code-tab-trigger code-tab-btn active" data-format="terraform">Terraform</button>
+            <button class="code-tab-trigger code-tab-btn" data-format="dockerfile">Dockerfile</button>
+            <button class="code-tab-trigger code-tab-btn" data-format="dockerCompose">Docker Compose</button>
+            <button class="code-tab-trigger code-tab-btn" data-format="cloudInit">Cloud-Init</button>
+          </div>
+
+          <button id="btn-copy-code" class="btn-secondary text-xs">
+            <i data-lucide="copy" class="w-3.5 h-3.5"></i> Copy Code
+          </button>
+        </div>
+      </div>
+
+      <div class="code-display-box p-4 max-h-[420px]">
+        <pre><code id="iac-code-content"># Infrastructure as Code will appear after workload evaluation.</code></pre>
+      </div>
+    </section>
+
+    <!-- Section 10: Developer Debug & Decision Telemetry Drawer -->
+    <section class="tech-surface p-4">
+      <button id="btn-toggle-debug" class="w-full flex items-center justify-between text-xs font-mono text-white/60 hover:text-white transition">
+        <span class="flex items-center gap-2">
+          <i data-lucide="bug" class="w-3.5 h-3.5 text-[#7D39EB]"></i>
+          <span class="font-bold">Developer Debug &amp; Decision Telemetry (AST, Negation Scope, Math Confidence)</span>
+        </span>
+        <span class="text-[10px] text-white/50">Toggle Inspection &darr;</span>
+      </button>
+
+      <div id="debug-drawer-content" class="hidden mt-3 pt-3 border-t border-[rgba(125,57,235,0.30)]">
+        <div class="code-display-box p-3 max-h-[300px]">
+          <pre><code id="debug-json-display">{ "status": "awaiting_input" }</code></pre>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- =========================================================================
+       MODALS (Black & Electric Violet Liquid Glass Themed)
+       ========================================================================= -->
+
+  <!-- Modal 1: CLOUD SERVICE CATALOG MODAL -->
+  <div id="catalog-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 modal-backdrop">
+    <div class="modal-box w-full max-w-4xl p-6 relative max-h-[90vh] flex flex-col">
+      <div class="flex items-center justify-between border-b border-[rgba(125,57,235,0.35)] pb-3 mb-4 shrink-0">
+        <div class="flex items-center gap-2">
+          <i data-lucide="book-open" class="w-5 h-5 text-[#7D39EB]"></i>
+          <div>
+            <h3 class="text-base font-bold text-[#FFFFFF] font-mono">Master Cloud Service Catalog</h3>
+            <p class="text-xs text-white/60">Browse and filter services across all 17 supported cloud platforms</p>
+          </div>
+        </div>
+        <button onclick="document.getElementById('catalog-modal').classList.add('hidden')"
+          class="text-white/60 hover:text-[#C6FF33] p-1.5 rounded-lg hover:bg-[rgba(125,57,235,0.2)] transition">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <!-- Search & Category Filters -->
+      <div class="flex flex-col sm:flex-row gap-3 mb-4 shrink-0">
+        <div class="relative flex-1">
+          <input type="text" id="catalog-search-input" placeholder="Search services (e.g. Postgres, Kubernetes, GPU, SQS)..." 
+            class="w-full glass-input px-3.5 py-2 text-xs pl-9">
+          <i data-lucide="search" class="w-4 h-4 text-white/50 absolute left-3 top-2.5"></i>
+        </div>
+        <select id="catalog-provider-select" class="glass-input px-3 py-2 text-xs font-mono">
+          <option value="all">All 17 Providers</option>
+          <!-- Populated by engine.js -->
+        </select>
+      </div>
+
+      <!-- Category Filter Pills -->
+      <div id="catalog-category-pills" class="flex flex-wrap gap-1.5 mb-4 shrink-0 overflow-x-auto pb-1">
+        <button class="catalog-cat-pill active px-3 py-1 rounded-full text-xs font-mono font-medium bg-[#7D39EB] text-[#FFFFFF]" data-cat="all">All</button>
+        <button class="catalog-cat-pill px-3 py-1 rounded-full text-xs font-mono font-medium bg-[rgba(125,57,235,0.18)] text-white/70 hover:bg-[rgba(125,57,235,0.3)]" data-cat="compute">Compute</button>
+        <button class="catalog-cat-pill px-3 py-1 rounded-full text-xs font-mono font-medium bg-[rgba(125,57,235,0.18)] text-white/70 hover:bg-[rgba(125,57,235,0.3)]" data-cat="database">Databases</button>
+        <button class="catalog-cat-pill px-3 py-1 rounded-full text-xs font-mono font-medium bg-[rgba(125,57,235,0.18)] text-white/70 hover:bg-[rgba(125,57,235,0.3)]" data-cat="storage">Storage</button>
+        <button class="catalog-cat-pill px-3 py-1 rounded-full text-xs font-mono font-medium bg-[rgba(125,57,235,0.18)] text-white/70 hover:bg-[rgba(125,57,235,0.3)]" data-cat="kubernetes">Kubernetes</button>
+        <button class="catalog-cat-pill px-3 py-1 rounded-full text-xs font-mono font-medium bg-[rgba(125,57,235,0.18)] text-white/70 hover:bg-[rgba(125,57,235,0.3)]" data-cat="serverless">Serverless</button>
+        <button class="catalog-cat-pill px-3 py-1 rounded-full text-xs font-mono font-medium bg-[rgba(125,57,235,0.18)] text-white/70 hover:bg-[rgba(125,57,235,0.3)]" data-cat="ai_gpu">AI / GPU</button>
+        <button class="catalog-cat-pill px-3 py-1 rounded-full text-xs font-mono font-medium bg-[rgba(125,57,235,0.18)] text-white/70 hover:bg-[rgba(125,57,235,0.3)]" data-cat="networking">Networking</button>
+      </div>
+
+      <!-- Services Grid -->
+      <div id="catalog-services-grid" class="flex-1 overflow-y-auto pr-1 grid grid-cols-1 md:grid-cols-2 gap-3">
+        <!-- Rendered by engine.js -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal 2: CLOUD CREDITS & FREE TIER DIRECTORY -->
+  <div id="credits-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 modal-backdrop">
+    <div class="modal-box w-full max-w-3xl p-6 relative max-h-[85vh] flex flex-col">
+      <div class="flex items-center justify-between border-b border-[rgba(125,57,235,0.35)] pb-3 mb-4 shrink-0">
+        <div class="flex items-center gap-2">
+          <i data-lucide="gift" class="w-5 h-5 text-[#7D39EB]"></i>
+          <div>
+            <h3 class="text-base font-bold text-[#FFFFFF] font-mono">Cloud Credits &amp; Free-Tier Programs</h3>
+            <p class="text-xs text-white/60">Startup credits, free trials, and perpetual allowances for all 17 clouds</p>
+          </div>
+        </div>
+        <button onclick="document.getElementById('credits-modal').classList.add('hidden')"
+          class="text-white/60 hover:text-[#C6FF33] p-1.5 rounded-lg hover:bg-[rgba(125,57,235,0.2)] transition">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <div id="credits-container" class="flex-1 overflow-y-auto pr-1 space-y-3">
+        <!-- Populated by engine.js -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal 3: SAVED BLUEPRINTS MODAL -->
+  <div id="saved-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 modal-backdrop">
+    <div class="modal-box w-full max-w-2xl p-6 relative max-h-[80vh] flex flex-col">
+      <div class="flex items-center justify-between border-b border-[rgba(125,57,235,0.35)] pb-3 mb-4 shrink-0">
+        <div class="flex items-center gap-2">
+          <i data-lucide="bookmark" class="w-5 h-5 text-[#7D39EB]"></i>
+          <div>
+            <h3 class="text-base font-bold text-[#FFFFFF] font-mono">Saved Architectures &amp; Blueprints</h3>
+            <p class="text-xs text-white/60">Local workstation storage</p>
+          </div>
+        </div>
+        <button onclick="document.getElementById('saved-modal').classList.add('hidden')"
+          class="text-white/60 hover:text-[#C6FF33] p-1.5 rounded-lg hover:bg-[rgba(125,57,235,0.2)] transition">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <div id="saved-blueprints-list" class="flex-1 overflow-y-auto pr-1 space-y-2.5">
+        <!-- Populated by engine.js -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal 4: ADR EXPORT MODAL -->
+  <div id="adr-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 modal-backdrop">
+    <div class="modal-box w-full max-w-3xl p-6 relative max-h-[85vh] flex flex-col">
+      <div class="flex items-center justify-between border-b border-[rgba(125,57,235,0.35)] pb-3 mb-3 shrink-0">
+        <div class="flex items-center gap-2">
+          <i data-lucide="file-text" class="w-5 h-5 text-[#7D39EB]"></i>
+          <div>
+            <h3 class="text-base font-bold text-[#FFFFFF] font-mono">Architecture Decision Record (ADR)</h3>
+            <p class="text-xs text-white/60">Standard RFC-format markdown document ready for git commit</p>
+          </div>
+        </div>
+        <div class="flex items-center gap-2">
+          <button id="btn-download-adr" class="btn-secondary text-xs">
+            <i data-lucide="download" class="w-3.5 h-3.5"></i> Download .md
+          </button>
+          <button id="btn-copy-adr" class="btn-primary-action text-xs py-1.5 px-3">
+            <i data-lucide="copy" class="w-3.5 h-3.5"></i> Copy
+          </button>
+          <button onclick="document.getElementById('adr-modal').classList.add('hidden')"
+            class="text-white/60 hover:text-[#C6FF33] p-1 rounded hover:bg-[rgba(125,57,235,0.2)]">
+            <i data-lucide="x" class="w-5 h-5"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="flex-1 overflow-y-auto pr-1">
+        <pre class="code-display-box p-4 rounded-xl text-xs font-mono leading-relaxed whitespace-pre-wrap"><code id="adr-content-display"></code></pre>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal 5: TEST BENCH MODAL -->
+  <div id="test-bench-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 modal-backdrop">
+    <div class="modal-box w-full max-w-2xl p-6 relative">
+      <div class="flex items-center justify-between border-b border-[rgba(125,57,235,0.35)] pb-3 mb-4">
+        <div class="flex items-center gap-2">
+          <i data-lucide="flask-conical" class="w-5 h-5 text-[#7D39EB]"></i>
+          <h3 class="text-base font-bold text-[#FFFFFF] font-mono">Developer Test Bench Fixtures</h3>
+        </div>
+        <button onclick="document.getElementById('test-bench-modal').classList.add('hidden')"
+          class="text-white/60 hover:text-[#C6FF33] p-1 rounded hover:bg-[rgba(125,57,235,0.2)]">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <p class="text-xs text-white/60 mb-4">
+        Click any scenario below to evaluate that workload immediately with zero manual typing.
+      </p>
+
+      <div id="test-fixtures-container" class="grid grid-cols-1 gap-2.5 max-h-[60vh] overflow-y-auto pr-1">
+        <!-- Rendered by engine.js -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div id="system-notification-toast" class="hidden fixed bottom-6 right-6 z-50 p-3.5 rounded-xl shadow-lg bg-[#0C0618] text-[#FFFFFF] text-xs font-mono flex items-center gap-2 border border-[#7D39EB]"></div>
+
+  <!-- Scripts -->
+  <script src="aurora.js?v=2.5.0"></script>
+  <script src="client_engine.js?v=2.5.0"></script>
+  <script src="engine.js?v=2.5.0"></script>
+</body>
+</html>

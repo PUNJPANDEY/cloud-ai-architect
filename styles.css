@@ -1,0 +1,643 @@
+/* ==========================================================================
+   Cloud AI Architect V2 — Visual Design System
+   Visual Identity: BLACK + ELECTRIC VIOLET + NEON LIME + WHITE
+   High-Contrast Futuristic Engineering Workstation
+   ========================================================================== */
+
+:root {
+  /* Centralized Core Palette Tokens */
+  --black: #000000;
+  --violet: #7D39EB;
+  --lime: #C6FF33;
+  --white: #FFFFFF;
+
+  /* Ambient Pitch-Black & Deep Atmospheric Background */
+  --bg-core: #030106;
+  --bg-gradient: 
+    radial-gradient(circle at 50% 0%, rgba(125, 57, 235, 0.16) 0%, transparent 60%),
+    radial-gradient(circle at 85% 25%, rgba(125, 57, 235, 0.09) 0%, transparent 50%),
+    radial-gradient(circle at 15% 75%, rgba(198, 255, 51, 0.03) 0%, transparent 45%),
+    linear-gradient(180deg, #07030E 0%, #030106 60%, #000000 100%);
+
+  /* Translucent Liquid Glass Surfaces */
+  --glass-surface: rgba(12, 6, 22, 0.72);
+  --glass-surface-hover: rgba(20, 10, 36, 0.85);
+  --glass-border: rgba(125, 57, 235, 0.32);
+  --glass-border-hover: rgba(125, 57, 235, 0.65);
+  --glass-border-active: var(--violet);
+  --glass-glow: 0 0 24px rgba(125, 57, 235, 0.12);
+
+  /* Elevated Technical Surfaces */
+  --surface-tech: rgba(12, 6, 22, 0.72);
+  --surface-elevated: rgba(18, 9, 32, 0.75);
+  --surface-border: rgba(125, 57, 235, 0.30);
+
+  /* Modal Backdrop & Panels */
+  --modal-backdrop: rgba(0, 0, 0, 0.88);
+  --modal-surface: rgba(10, 5, 20, 0.96);
+  --modal-border: var(--violet);
+
+  /* Text System Hierarchy */
+  --text-primary: #FFFFFF;
+  --text-heading: #FFFFFF;
+  --text-secondary: rgba(255, 255, 255, 0.70);
+  --text-muted: rgba(255, 255, 255, 0.45);
+  --text-accent: var(--violet);
+  --text-highlight: var(--lime);
+
+  /* Typography */
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', 'Roboto Mono', Menlo, monospace;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  background-color: var(--bg-core);
+  background-image: var(--bg-gradient);
+  background-attachment: fixed;
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* Animated Live Wallpaper Canvas (Procedural Cosmic Aurora) */
+#aurora-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Subtle Technical Grid Overlay */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    linear-gradient(to right, rgba(125, 57, 235, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(125, 57, 235, 0.04) 1px, transparent 1px);
+  background-size: 36px 36px;
+  pointer-events: none;
+  z-index: 1;
+}
+
+main, header, footer, section, div, nav {
+  position: relative;
+  z-index: 2;
+}
+
+/* Custom Scrollbars: Near-Black Track, Violet Thumb, Lime Hover */
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+::-webkit-scrollbar-track {
+  background: #080410;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--violet);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--lime);
+}
+
+/* ==========================================================================
+   Liquid Glass Panels & Translucent Surfaces
+   ========================================================================== */
+
+.glass-panel {
+  background: var(--glass-surface);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--glass-border);
+  border-radius: 14px;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.65), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-panel:hover {
+  background: var(--glass-surface-hover);
+  border-color: var(--glass-border-hover);
+  box-shadow: 0 16px 44px rgba(0, 0, 0, 0.75), 0 0 20px rgba(125, 57, 235, 0.18);
+}
+
+.glass-header {
+  background: rgba(8, 4, 16, 0.82);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(125, 57, 235, 0.35);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.7);
+}
+
+.glass-input {
+  background: rgba(10, 5, 20, 0.80);
+  border: 1px solid rgba(125, 57, 235, 0.40);
+  color: var(--white);
+  border-radius: 10px;
+  transition: all 0.2s ease;
+  font-family: var(--font-sans);
+}
+
+.glass-input:focus {
+  outline: none;
+  border-color: var(--violet);
+  background: rgba(14, 7, 28, 0.90);
+  box-shadow: 0 0 0 3px rgba(125, 57, 235, 0.25), 0 0 16px rgba(125, 57, 235, 0.20);
+}
+
+.glass-input::placeholder {
+  color: rgba(255, 255, 255, 0.35);
+}
+
+select.glass-input {
+  background-color: rgba(10, 5, 20, 0.92);
+  color: var(--white);
+}
+
+select.glass-input option {
+  background-color: #0c0618;
+  color: var(--white);
+}
+
+/* Elevated Technical Surfaces */
+.tech-surface {
+  background: var(--surface-tech);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid var(--surface-border);
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.55);
+}
+
+.tech-surface-elevated {
+  background: var(--surface-elevated);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(125, 57, 235, 0.45);
+  border-radius: 10px;
+}
+
+/* ==========================================================================
+   Typography & Technical Badges
+   ========================================================================== */
+
+.font-mono-tech {
+  font-family: var(--font-mono);
+  letter-spacing: 0.05em;
+}
+
+.tech-badge {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 3px 8px;
+  border-radius: 6px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-weight: 700;
+}
+
+.badge-violet, .badge-teal {
+  background: rgba(125, 57, 235, 0.20);
+  color: var(--white);
+  border: 1px solid rgba(125, 57, 235, 0.55);
+}
+
+.badge-lime, .badge-green, .badge-turquoise {
+  background: rgba(198, 255, 51, 0.15);
+  color: var(--lime);
+  border: 1px solid var(--lime);
+}
+
+.badge-muted {
+  background: rgba(255, 255, 255, 0.06);
+  color: rgba(255, 255, 255, 0.70);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.badge-navy {
+  background: #140A28;
+  color: var(--white);
+  border: 1px solid rgba(125, 57, 235, 0.40);
+}
+
+.badge-warning {
+  background: rgba(125, 57, 235, 0.25);
+  color: var(--white);
+  border: 1px solid var(--violet);
+}
+
+.badge-error {
+  background: rgba(125, 57, 235, 0.35);
+  color: var(--lime);
+  border: 1px solid var(--violet);
+}
+
+/* Status Indicator Dot */
+.status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.status-dot-active {
+  background-color: var(--lime);
+  box-shadow: 0 0 8px var(--lime);
+  animation: pulse-glow 2s infinite ease-in-out;
+}
+
+.status-dot-idle {
+  background-color: rgba(125, 57, 235, 0.5);
+}
+
+@keyframes pulse-glow {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.55; transform: scale(0.85); }
+}
+
+/* ==========================================================================
+   Buttons & Interactive Elements
+   Primary: Lime #C6FF33 bg, Black #000000 text
+   Secondary: Black glass bg, Violet #7D39EB border, White text
+   ========================================================================== */
+
+.btn-primary-action {
+  background: var(--lime);
+  border: 1px solid var(--lime);
+  color: var(--black);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  padding: 10px 22px;
+  border-radius: 10px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 14px rgba(198, 255, 51, 0.30);
+}
+
+.btn-primary-action:hover {
+  background: #D4FF5E;
+  border-color: #D4FF5E;
+  color: var(--black);
+  box-shadow: 0 6px 22px rgba(198, 255, 51, 0.45);
+  transform: translateY(-1px);
+}
+
+.btn-primary-action:active {
+  background: #AEE61A;
+  border-color: #AEE61A;
+  color: var(--black);
+  transform: translateY(0);
+}
+
+.btn-primary-action:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(198, 255, 51, 0.5);
+}
+
+.btn-catalog {
+  background: rgba(125, 57, 235, 0.20);
+  border: 1px solid var(--violet);
+  color: var(--white);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  padding: 8px 16px;
+  border-radius: 9px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  transition: all 0.2s ease;
+  box-shadow: 0 3px 12px rgba(125, 57, 235, 0.25);
+}
+
+.btn-catalog:hover {
+  background: var(--violet);
+  border-color: var(--violet);
+  color: var(--white);
+  box-shadow: 0 5px 18px rgba(125, 57, 235, 0.45);
+  transform: translateY(-1px);
+}
+
+.btn-secondary {
+  background: rgba(125, 57, 235, 0.12);
+  border: 1px solid rgba(125, 57, 235, 0.45);
+  color: var(--white);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 600;
+  padding: 8px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+}
+
+.btn-secondary:hover {
+  background: rgba(125, 57, 235, 0.28);
+  border-color: var(--violet);
+  color: var(--lime);
+  transform: translateY(-1px);
+}
+
+.btn-secondary:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(125, 57, 235, 0.4);
+}
+
+/* Code Display Box */
+.code-display-box {
+  background: #090414;
+  border: 1px solid rgba(125, 57, 235, 0.35);
+  border-radius: 10px;
+  color: var(--white);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  line-height: 1.6;
+  overflow-x: auto;
+}
+
+.code-display-box pre {
+  margin: 0;
+}
+
+.code-tab-btn {
+  padding: 6px 12px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.70);
+  border-radius: 6px;
+  transition: all 0.15s ease;
+  cursor: pointer;
+}
+
+.code-tab-btn.active {
+  background: var(--violet);
+  color: var(--white);
+  box-shadow: 0 2px 8px rgba(125, 57, 235, 0.4);
+}
+
+/* ==========================================================================
+   Interactive Sliders
+   Track: Inactive Dark Violet, Active Lime #C6FF33
+   Thumb: Black with Lime Border
+   ========================================================================== */
+
+.slider-container {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.slider-track {
+  width: 100%;
+  height: 6px;
+  background: rgba(125, 57, 235, 0.25);
+  border-radius: 3px;
+  outline: none;
+  -webkit-appearance: none;
+  appearance: none;
+  cursor: pointer;
+}
+
+.slider-track::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--black);
+  border: 3px solid var(--lime);
+  box-shadow: 0 0 10px rgba(198, 255, 51, 0.4);
+  cursor: pointer;
+  transition: transform 0.1s ease, background 0.15s ease, border-color 0.15s ease;
+}
+
+.slider-track::-webkit-slider-thumb:hover {
+  background: var(--violet);
+  border-color: var(--white);
+  transform: scale(1.18);
+}
+
+.slider-track::-webkit-slider-thumb:focus,
+.slider-track:focus::-webkit-slider-thumb {
+  box-shadow: 0 0 0 4px rgba(198, 255, 51, 0.45);
+}
+
+.slider-track::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--black);
+  border: 3px solid var(--lime);
+  box-shadow: 0 0 10px rgba(198, 255, 51, 0.4);
+  cursor: pointer;
+}
+
+.slider-track::-moz-range-thumb:hover {
+  background: var(--violet);
+  border-color: var(--white);
+  transform: scale(1.18);
+}
+
+/* ==========================================================================
+   Architecture Schematic Nodes
+   ========================================================================== */
+
+.arch-node {
+  background: rgba(14, 8, 26, 0.78);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(125, 57, 235, 0.38);
+  border-radius: 10px;
+  padding: 13px;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+}
+
+.arch-node:hover {
+  border-color: var(--violet);
+  box-shadow: 0 8px 24px rgba(125, 57, 235, 0.28);
+  transform: translateY(-2px);
+  background: rgba(22, 12, 40, 0.85);
+}
+
+/* Architecture Flaws & Traps Cards */
+.flaw-card {
+  background: rgba(14, 8, 26, 0.75);
+  border: 1px solid rgba(125, 57, 235, 0.35);
+  border-left: 4px solid var(--violet);
+  border-radius: 10px;
+  padding: 14px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.flaw-card.severity-CRITICAL {
+  border-left-color: var(--violet);
+}
+
+.flaw-card.severity-HIGH {
+  border-left-color: var(--violet);
+}
+
+.flaw-card.severity-MEDIUM {
+  border-left-color: rgba(125, 57, 235, 0.6);
+}
+
+.trap-card {
+  background: rgba(14, 8, 26, 0.75);
+  border: 1px solid rgba(125, 57, 235, 0.35);
+  border-radius: 10px;
+  padding: 14px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.trap-card:hover {
+  border-color: var(--violet);
+  box-shadow: 0 6px 18px rgba(125, 57, 235, 0.2);
+}
+
+/* Procurement Scenario Card */
+.scenario-card {
+  background: rgba(14, 8, 26, 0.75);
+  border: 1px solid rgba(125, 57, 235, 0.35);
+  border-radius: 12px;
+  padding: 16px;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.scenario-card:hover {
+  border-color: var(--violet);
+  background: rgba(22, 12, 40, 0.85);
+  box-shadow: 0 6px 20px rgba(125, 57, 235, 0.22);
+  transform: translateY(-1px);
+}
+
+.scenario-card.active {
+  border-color: var(--violet);
+  background: rgba(125, 57, 235, 0.20);
+  box-shadow: 0 6px 22px rgba(125, 57, 235, 0.32);
+}
+
+/* Modals */
+.modal-backdrop {
+  background: var(--modal-backdrop);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+.modal-box {
+  background: var(--modal-surface);
+  border: 1px solid var(--violet);
+  border-radius: 16px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.85), 0 0 30px rgba(125, 57, 235, 0.20);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+/* Multi-Cloud Table */
+.table-teal thead th, .table-violet thead th {
+  background: #0E071D;
+  color: var(--white);
+  border-bottom: 2px solid var(--violet);
+}
+
+.table-teal tbody tr, .table-violet tbody tr {
+  border-bottom: 1px solid rgba(125, 57, 235, 0.20);
+  transition: background 0.15s ease;
+  color: rgba(255, 255, 255, 0.70);
+}
+
+.table-teal tbody tr:hover, .table-violet tbody tr:hover {
+  background: rgba(125, 57, 235, 0.18);
+  color: var(--white);
+}
+
+.table-teal tbody tr.winner-row, .table-violet tbody tr.winner-row {
+  background: rgba(125, 57, 235, 0.16);
+  font-weight: 600;
+  color: var(--white);
+  border-left: 3px solid var(--lime);
+}
+
+/* ==========================================================================
+   Mobile Responsiveness Enhancements (< 640px)
+   ========================================================================== */
+@media (max-width: 640px) {
+  /* Prevent accidental horizontal overflow */
+  html, body {
+    overflow-x: hidden;
+    width: 100%;
+  }
+
+  /* Compact header controls */
+  .glass-header {
+    padding: 0 4px;
+  }
+  
+  .btn-catalog {
+    padding: 6px 10px;
+    font-size: 11px;
+    gap: 4px;
+  }
+
+  .btn-secondary {
+    padding: 6px 10px;
+    font-size: 11px;
+  }
+
+  /* Touch-friendly slider thumb */
+  .slider-track::-webkit-slider-thumb {
+    width: 22px;
+    height: 22px;
+  }
+  .slider-track::-moz-range-thumb {
+    width: 22px;
+    height: 22px;
+  }
+
+  /* Smooth momentum scrolling for table */
+  .overflow-x-auto {
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Modals full-width on mobile */
+  .modal-box {
+    padding: 16px;
+    max-height: 92vh;
+    border-radius: 12px;
+  }
+}
+
