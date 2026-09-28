@@ -11,12 +11,11 @@ Cloud AI Architect V2 (CAA V2) is an interactive cloud architecture decision-sup
 ![Cloud AI Architect V2 Dashboard](./Screenshot%202026-09-28%20235001.png)
 ### 🏗️ Architecture & Cost
 
-![Architecture and Cost Analysis](./architecture-cost.png)
+![Architecture and Cost Analysis](./Screenshot%202026-09-29%20000013.png)
 
 ### ⚠️ Architecture Flaws & Risks
 
-![Architecture Flaws and Risks](./architecture-flaws.png)
-
+![Architecture Flaws and Risks](./Screenshot%202026-09-29%20000217.png)
 # 🧠 What Is Cloud AI Architect?
 
 Choosing a cloud provider is rarely just a matter of comparing VM prices.
