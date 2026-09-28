@@ -6,6 +6,9 @@ Cloud AI Architect V2 (CAA V2) is an interactive cloud architecture decision-sup
 
 🌐 **Live Demo:** https://cloud-ai-architecv2.netlify.app/
 ---
+## 📸 Dashboard Preview
+
+![Cloud AI Architect V2 Dashboard](./Screenshot%202026-09-28%20225001.png)
 
 # 🧠 What Is Cloud AI Architect?
 
