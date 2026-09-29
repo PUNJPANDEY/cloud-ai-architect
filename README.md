@@ -97,3 +97,34 @@ Natural-Language Workload
 ┌─────────────────────────┐
 │ IaC + ADR + Blueprint   │
 └─────────────────────────┘
+
+
+## 🧩 Backend Architecture
+
+Cloud AI Architect V2 includes a Python/FastAPI backend responsible for the core architecture decision pipeline.
+
+```text
+                    ┌──────────────────────────┐
+                    │     CAA V2 Frontend      │
+                    │      HTML / CSS / JS      │
+                    └────────────┬─────────────┘
+                                 │
+                                 ▼
+                    ┌──────────────────────────┐
+                    │       REST API            │
+                    │        FastAPI            │
+                    └────────────┬─────────────┘
+                                 │
+              ┌──────────────────┼──────────────────┐
+              ▼                  ▼                  ▼
+       Workload Parser     Evaluation Engine    SQLite
+              │                  │             Persistence
+              ▼                  ▼
+       Requirement         Provider Scoring
+        Extraction         & Cost Analysis
+                                 │
+                    ┌────────────┴────────────┐
+                    ▼                         ▼
+             Architecture                IaC Generator
+              Synthesis              Terraform / Docker /
+                                     Compose / Cloud-Init
