@@ -133,4 +133,9 @@ Cloud AI Architect V2 includes a Python/FastAPI backend responsible for the core
                                      Compose / Cloud-Init
 
 ```
-![Cloud AI Architect V2 FastAPI Backend](./screenshot-2026-09-29-212526.png)
+### 🔌 Backend API Documentation
+
+The backend exposes REST endpoints through FastAPI with interactive OpenAPI documentation.
+
+![FastAPI Backend API](./backend-api.png)
+
