@@ -1,6 +1,9 @@
 # ☁️ Cloud AI Architect V2
 
 > **Deterministic Multi-Cloud Architecture & Cost Workstation**
+![FastAPI](https://img.shields.io/badge/Backend-FastAPI-009688?logo=fastapi&logoColor=white)
+ ![Python](https://img.shields.io/badge/Python-Backend-3776AB?logo=python&logoColor=white)
+![SQLite](https://img.shields.io/badge/Database-SQLite-003B57?logo=sqlite&logoColor=white)
 
 Cloud AI Architect V2 (CAA V2) is an interactive cloud architecture decision-support workstation that transforms natural-language workload requirements into a structured technical model, evaluates the workload across **17 cloud providers**, synthesizes an architecture, estimates infrastructure economics, identifies architectural risks and hidden billing traps, and generates infrastructure templates and architecture documentation.
 
