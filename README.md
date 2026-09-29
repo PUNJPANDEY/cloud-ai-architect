@@ -97,7 +97,7 @@ Natural-Language Workload
 ┌─────────────────────────┐
 │ IaC + ADR + Blueprint   │
 └─────────────────────────┘
-
+```
 
 ## 🧩 Backend Architecture
 
@@ -128,3 +128,6 @@ Cloud AI Architect V2 includes a Python/FastAPI backend responsible for the core
              Architecture                IaC Generator
               Synthesis              Terraform / Docker /
                                      Compose / Cloud-Init
+
+```
+![Cloud AI Architect V2 FastAPI Backend](./screenshot-2026-09-29-212526.png)
