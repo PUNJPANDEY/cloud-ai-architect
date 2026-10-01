@@ -7,20 +7,6 @@
 
 Cloud AI Architect V2 (CAA V2) is an interactive cloud architecture decision-support workstation that transforms natural-language workload requirements into a structured technical model, evaluates the workload across **17 cloud providers**, synthesizes an architecture, estimates infrastructure economics, identifies architectural risks and hidden billing traps, and generates infrastructure templates and architecture documentation.
 
-🌐 **Live Demo:** https://cloud-ai-architecv2.netlify.app/
----
-## 📸 Dashboard Preview
-
-![Cloud AI Architect V2 Dashboard](./Screenshot%202026-09-28%20235001.png)
-### 🏗️ Architecture & Cost
-
-![Architecture and Cost Analysis](./Screenshot%202026-09-29%20000013.png)
-
-### ⚠️ Architecture Flaws & Risks
-
-![Architecture Flaws and Risks](./Screenshot%202026-09-29%20000217.png)
-# 🧠 What Is Cloud AI Architect?
-
 Choosing a cloud provider is rarely just a matter of comparing VM prices.
 
 A real workload can involve:
